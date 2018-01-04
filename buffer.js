@@ -12,7 +12,7 @@ class Buffer {
         return y*this.width + x
     }
 
-    fill(c = ' ') {
+    clear(c = ' ') {
         this.buffer.fill(c)
     }
 
