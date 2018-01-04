@@ -47,6 +47,10 @@ const zip = (a, b) => {
 const range = n => 
     [...Array(n).keys()]
 
+const arrayEquals = (a, b) =>
+    zip(a, b)
+        .every(p => p[0] == p[1])
+
 const dot = (a, b) => 
     zip(a,b)
         .map(v => v[0]*v[1])
@@ -74,5 +78,6 @@ module.exports = {
     normalize,
     vecdir2,
     zip,
+    arrayEquals,
     range
 }

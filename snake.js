@@ -34,8 +34,6 @@ class Snake {
 
         this.at = zip(this.at, this.v)
                 .map(p => p[0] + p[1])
-        
-        return board.isValidAt(...this.at)
     }
 }
 
