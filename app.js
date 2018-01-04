@@ -2,7 +2,12 @@ const Buffer = require('./buffer.js')
 const keypress = require('keypress')
 const conutil = require('./conutil.js')
 const {Board, Snake} = require('./snake.js')
-const {arrayEquals} = require('./utils.js')
+const {zip, arrayEquals} = require('./utils.js')
+
+const terminalSize = () => 
+    process.stdout.isTTY ? 
+        [process.stdout.columns, process.stdout.rows] : 
+        [80, 24]
 
 // Setup console
 conutil.apply(console)
@@ -33,13 +38,13 @@ const placeFood = board => {
 }
 
 const setup = state => {
-    let width = 40
-    let height = 30
+    let size = terminalSize().map(x => x-2)
+    let middle = size.map(x => (x/2)|0)
 
-    state.board = new Board(width, height)
-    state.snake = new Snake([width/2, height/2], [1,0], 3)
+    state.board = new Board(...size)
+    state.snake = new Snake(middle, [1,0], 3)
     state.food = placeFood(state.board)
-    state.buffer = new Buffer(width+2, height+2)
+    state.buffer = new Buffer(...size.map(x => x+2))
 
     console.reset()
 }
