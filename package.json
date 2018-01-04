@@ -1,12 +1,12 @@
 {
-  "name": "node-snake",
-  "version": "1.0.0",
-  "description": "",
+  "name": "ascii-snake",
+  "version": "0.1.1",
+  "description": "Basic snake game written in node, for TTY",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
-  "keywords": [],
+  "keywords": ["ascii", "snake"],
   "author": "elementbound",
-  "license": "ISC"
+  "license": "MIT"
 }
