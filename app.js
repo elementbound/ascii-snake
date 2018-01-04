@@ -39,7 +39,7 @@ const setup = state => {
     state.board = new Board(width, height)
     state.snake = new Snake([width/2, height/2], [1,0], 3)
     state.food = placeFood(state.board)
-    state.buffer = new Buffer(width, height)
+    state.buffer = new Buffer(width+2, height+2)
 
     console.reset()
 }
@@ -65,15 +65,27 @@ const update = state => {
 const render = state => {
     const {buffer, snake, food} = state
 
-    buffer.clear();
+    let width = buffer.width-1
+    let height = buffer.height-1
+
+    buffer.clear()
+
+    // Draw walls
+    let block = '█'
+    buffer.line([0,0], [width,0], block)
+    buffer.line([0,0], [0,height], block)
+    buffer.line([0,height], [width,height], block)
+    buffer.line([width,0], [width,height], block)
 
     // Draw snake
-    [...snake.history, snake.at].forEach(at => {
-        buffer.set(...at, '+')
-    })
+    let body = [...snake.history, snake.at]
+        .map(at => [at[0]+1, at[1]+1])
+        .forEach(at => {
+            buffer.set(...at, '+')
+        })
 
     // Draw food
-    buffer.set(...food, '*')
+    buffer.set(food[0]+1, food[1]+1, '*')
 
     console.repos()
     buffer.present()
